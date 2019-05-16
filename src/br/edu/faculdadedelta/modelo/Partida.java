@@ -1,5 +1,6 @@
 package br.edu.faculdadedelta.modelo;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Partida {
@@ -12,12 +13,13 @@ public class Partida {
     private Status status;
     private Time timeCasa;
     private Time timeVisitante;
+    private Date dataPartida;
 
     public Partida() {
     }
 
     public Partida(Long idPartida, String local, String horarioPartida, Integer golTimeCasa,
-                   Integer golTimeVisitante, Status status, Time timeCasa, Time timeVisitante) {
+                   Integer golTimeVisitante, Status status, Time timeCasa, Time timeVisitante, Date dataPartida) {
         this.idPartida = idPartida;
         this.local = local;
         this.horarioPartida = horarioPartida;
@@ -26,6 +28,7 @@ public class Partida {
         this.status = status;
         this.timeCasa = timeCasa;
         this.timeVisitante = timeVisitante;
+        this.dataPartida = dataPartida;
     }
 
     public Long getIdPartida() {
@@ -90,6 +93,14 @@ public class Partida {
 
     public void setTimeVisitante(Time timeVisitante) {
         this.timeVisitante = timeVisitante;
+    }
+
+    public Date getDataPartida(){
+        return dataPartida;
+    }
+
+    public void setDataPartida(Date dataPartida){
+        this.dataPartida = dataPartida;
     }
 
     public String getPlacar(){

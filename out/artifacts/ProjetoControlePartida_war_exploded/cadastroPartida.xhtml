@@ -44,6 +44,12 @@
                     <p:inputText value="#{partidaController.partida.local}" required="true"
                                  requiredMessage="O campo local é obrigatorio. " id="local" />
 
+                    <h:outputLabel value="Data da partida: *" for="data" />
+                    <p:calendar pattern="dd/MM/yyyy" value="#{partidaController.partida.dataPartida}" required="true"
+                                requiredMessage="O campo data da partida é obrigatorio. " id="data" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+                    </p:calendar>
+
                     <h:outputLabel value="Horario da partida: *" for="horario" />
                     <p:inputText value="#{partidaController.partida.horarioPartida}" required="true"
                                  requiredMessage="O campo horario da partida é obrigatorio. " id="horario" />

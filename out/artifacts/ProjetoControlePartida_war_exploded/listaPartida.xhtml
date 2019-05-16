@@ -18,6 +18,12 @@
                         <p:outputLabel value="#{partida.local}" />
                     </p:column>
 
+                    <p:column headerText="Data da Partida">
+                        <h:outputLabel value="#{partida.dataPartida}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Ameria/Sao_Paulo" />
+                        </h:outputLabel>
+                    </p:column>
+
                     <p:column headerText="Horario">
                         <p:outputLabel value="#{partida.horarioPartida}" />
                     </p:column>

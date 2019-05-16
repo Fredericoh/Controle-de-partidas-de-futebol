@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PartidaDAO {
@@ -34,6 +35,9 @@ public class PartidaDAO {
 
                     ps.setLong (i + 1, (Long)param);
 
+                } else if (param instanceof java.util.Date){
+                    Date data = (Date) param;
+                    ps.setDate (i + 1, new java.sql.Date(data.getTime ()));
                 }
 
             }
@@ -48,7 +52,7 @@ public class PartidaDAO {
         Connection conn = Conexao.conectarNoBancoDeDados ();
 
         String sql = "INSERT INTO partidas (local_partida, horario_partida, id_time_casa, id_time_visitante, " +
-                "gol_time_casa, gol_time_visitante, id_status_partida) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "gol_time_casa, gol_time_visitante, id_status_partida, data_partida) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement ps = null;
 
@@ -63,7 +67,8 @@ public class PartidaDAO {
                     partida.getTimeVisitante ().getIdTime (),
                     partida.getGolTimeCasa (),
                     partida.getGolTimeVisitante (),
-                    partida.getStatus ().getIdStatus ());
+                    partida.getStatus ().getIdStatus (),
+                    partida.getDataPartida ());
 
         } catch (SQLException e){
 
@@ -81,8 +86,8 @@ public class PartidaDAO {
         Connection conn = Conexao.conectarNoBancoDeDados ();
 
         String sql = "UPDATE partidas SET local_partida = ?, horario_partida = ?, id_time_casa = ?, " +
-                "id_time_visitante = ?, gol_time_casa = ?, gol_time_visitante = ?, id_status_partida = ? " +
-                "WHERE id_partidas = ?";
+                "id_time_visitante = ?, gol_time_casa = ?, gol_time_visitante = ?, id_status_partida = ?, " +
+                "data_partida = ? WHERE id_partidas = ?";
 
         PreparedStatement ps = null;
 
@@ -97,7 +102,8 @@ public class PartidaDAO {
                     partida.getGolTimeCasa (),
                     partida.getGolTimeVisitante (),
                     partida.getStatus ().getIdStatus (),
-                    partida.getIdPartida ());
+                    partida.getIdPartida (),
+                    partida.getDataPartida ());
 
         } catch (SQLException e){
 
@@ -144,6 +150,7 @@ public class PartidaDAO {
                 " p.horario_partida AS horarioPartida, " +
                 " p.gol_time_casa AS golCasa, " +
                 " p.gol_time_visitante AS golVisitante, " +
+                " p.data_partida AS dataPartida, " +
                 " tc.id_time AS idTimeCasa, " +
                 " tc.nome AS nomeTimeCasa, " +
                 " tv.id_time AS idTimeVisitante, " +
@@ -154,7 +161,7 @@ public class PartidaDAO {
                 "INNER JOIN times AS tc ON p.id_time_casa = tc.id_time " +
                 "INNER JOIN times AS tv ON p.id_time_visitante = tv.id_time " +
                 "INNER JOIN status_partida AS sp ON p.id_status_partida = sp.id_status " +
-                "ORDER BY sp.descricao ASC ";
+                "ORDER BY p.data_partida ASC ";
 
         PreparedStatement ps = null;
 
@@ -176,6 +183,7 @@ public class PartidaDAO {
                 partida.setHorarioPartida (rs.getString ("horarioPartida").trim ());
                 partida.setGolTimeCasa (rs.getInt ("golCasa"));
                 partida.setGolTimeVisitante (rs.getInt ("golVisitante"));
+                partida.setDataPartida (rs.getDate ("dataPartida"));
 
                 Time timeCasa = new Time ();
                 timeCasa.setIdTime (rs.getLong ("idTimeCasa"));
