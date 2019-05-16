@@ -1,0 +1,62 @@
+<ui:composition template="layoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Lista de partida</ui:define>
+    <ui:define name="corpo">
+        <h:form>
+            <p:growl showDetail="true" />
+
+            <p:panel header="Lista de partida">
+                <p:dataTable var="partida" value="#{partidaController.lista}" emptyMessage="Nenhuma partida cadastrada." >
+
+
+                    <p:column headerText="Local">
+                        <p:outputLabel value="#{partida.local}" />
+                    </p:column>
+
+                    <p:column headerText="Horario">
+                        <p:outputLabel value="#{partida.horarioPartida}" />
+                    </p:column>
+
+                    <p:column headerText="Time da casa">
+                        <p:outputLabel value="#{partida.timeCasa.nomeTime}" />
+                    </p:column>
+
+                    <p:column headerText="Placar">
+                        <h:outputLabel value="#{partida.placar}" />
+                    </p:column>
+
+                    <p:column headerText="Time visitante">
+                        <p:outputLabel value="#{partida.timeVisitante.nomeTime}" />
+                    </p:column>
+
+                    <p:column headerText="Gol time da casa">
+                        <p:outputLabel value="#{partida.golTimeCasa}" />
+                    </p:column>
+
+                    <p:column headerText="Gol visitante">
+                        <p:outputLabel value="#{partida.golTimeVisitante}" />
+                    </p:column>
+
+                    <p:column headerText="Status">
+                        <p:outputLabel value="#{partida.status.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Ação">
+                        <p:commandButton value="Editar" action="#{partidaController.editar}" ajax="false">
+                            <f:setPropertyActionListener value="#{partida}" target="#{partidaController.partida}" />
+                        </p:commandButton>
+
+                        <p:commandButton value="Excluir" action="#{partidaController.excluir}" ajax="false">
+                            <f:setPropertyActionListener value="#{partida}" target="#{partidaController.partida}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
