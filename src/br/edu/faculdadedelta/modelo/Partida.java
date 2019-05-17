@@ -111,8 +111,9 @@ public class Partida {
 
         if (status.getDescricao ().equals ("Não iniciada")) {
 
-            golCasaConvertido = "0";
-            golVisitanteConvertido = "0";
+            golCasaConvertido = "";
+            golVisitanteConvertido = "";
+            separador = "";
 
         }
         return golCasaConvertido + separador + golVisitanteConvertido ;

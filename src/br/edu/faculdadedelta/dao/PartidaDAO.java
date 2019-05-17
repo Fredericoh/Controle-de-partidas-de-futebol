@@ -87,7 +87,7 @@ public class PartidaDAO {
 
         String sql = "UPDATE partidas SET local_partida = ?, horario_partida = ?, id_time_casa = ?, " +
                 "id_time_visitante = ?, gol_time_casa = ?, gol_time_visitante = ?, id_status_partida = ?, " +
-                "data_partida = ? WHERE id_partidas = ?";
+                "data_partida = ? WHERE id_partidas = ? ";
 
         PreparedStatement ps = null;
 
@@ -102,8 +102,8 @@ public class PartidaDAO {
                     partida.getGolTimeCasa (),
                     partida.getGolTimeVisitante (),
                     partida.getStatus ().getIdStatus (),
-                    partida.getIdPartida (),
-                    partida.getDataPartida ());
+                    partida.getDataPartida (),
+                    partida.getIdPartida ())                   ;
 
         } catch (SQLException e){
 
@@ -161,7 +161,7 @@ public class PartidaDAO {
                 "INNER JOIN times AS tc ON p.id_time_casa = tc.id_time " +
                 "INNER JOIN times AS tv ON p.id_time_visitante = tv.id_time " +
                 "INNER JOIN status_partida AS sp ON p.id_status_partida = sp.id_status " +
-                "ORDER BY p.data_partida ASC ";
+                "ORDER BY sp.id_status, p.data_partida ASC ";
 
         PreparedStatement ps = null;
 
